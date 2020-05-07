@@ -1,5 +1,6 @@
 const express = require("express");
 const userRouter = require("./routes/userRoutes");
+const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/AppError");
 const app = express();
 
@@ -11,4 +12,6 @@ app.use("api/v1/users", userRouter);
 
 app.all("*", (req, res, next) => next(new AppError(`Can't find ${req.originalUrl} on this sever!`, 404)));
 
+//GLobal error middleware
+app.use(globalErrorHandler);
 module.exports = app;

@@ -8,7 +8,7 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
     category: req.params.categoryId
   };
   const subjects = await Subject.find(filter);
-  if (!subjects.length) return next(new AppError("No subjects found", 404));
+  if (!subjects.length || !subjects) return next(new AppError("No subjects found", 404));
   res.status(200).json({
     status: "success",
     result: subjects.length,
@@ -19,8 +19,16 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
 });
 
 exports.getSubject = catchAsync(async (req, res, next) => {
-
+  const subject = await Subject.findById(req.params.id);
+  if (!subject) return next(new AppError("No subject found with that ID", 404)); //If no subject found
+  res.status(200).json({
+    status: "success",
+    data: {
+      subject
+    }
+  });
 });
+
 exports.createSubject = catchAsync(async (req, res, next) => {
 
 });

@@ -1,0 +1,58 @@
+{
+ "name": "tutory",
+ "version": "1.0.0",
+ "description": "An online tutoring app",
+ "main": "app.js",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/victor-for-christ/tutory.git"
+ },
+ "keywords": [
+  "Student",
+  "Tutor",
+  "Lesson",
+  "Subject"
+ ],
+ "author": "Adewumi Victor",
+ "license": "ISC",
+ "bugs": {
+  "url": "https://github.com/victor-for-christ/tutory/issues"
+ },
+ "homepage": "https://github.com/victor-for-christ/tutory#readme",
+ "dependencies": {
+  "bcryptjs": "^2.4.3",
+  "compression": "^1.7.4",
+  "cookie-parser": "^1.4.5",
+  "cors": "^2.8.5",
+  "dotenv": "^8.1.0",
+  "express": "^4.17.1",
+  "express-mongo-sanitize": "^1.3.2",
+  "express-rate-limit": "^5.0.0",
+  "helmet": "^3.21.2",
+  "hpp": "^0.2.2",
+  "html-to-text": "^5.1.1",
+  "jsonwebtoken": "^8.5.1",
+  "mongoose": "^5.6.8",
+  "morgan": "^1.9.1",
+  "multer": "^1.4.2",
+  "sharp": "^0.25.2",
+  "slugify": "^1.3.4",
+  "stripe": "7.0.0",
+  "validator": "^11.1.0",
+  "xss-clean": "^0.1.1"
+ },
+ "devDependencies": {
+  "nodemailer": "^6.3.1",
+  "eslint": "^6.1.0",
+  "eslint-config-airbnb": "^17.1.1",
+  "eslint-config-prettier": "^6.0.0",
+  "eslint-plugin-import": "^2.18.2",
+  "eslint-plugin-jsx-a11y": "^6.2.3",
+  "eslint-plugin-node": "^9.1.0",
+  "eslint-plugin-prettier": "^3.1.0",
+  "eslint-plugin-react": "^7.14.3"
+ }
+}

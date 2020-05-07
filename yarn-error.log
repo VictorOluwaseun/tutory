@@ -1,0 +1,84 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\app\product\11.2.0\dbhome_1\bin;C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;c:\Program Files\Microsoft SQL Server\110\Tools\Binn\;c:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files\dotnet\;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Program Files\Java\jdk-10.0.1\bin;C:\Program Files\Java\jre-10.0.1\bin;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\MongoDB\Server\4.0\bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Users\adevi\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\adevi\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\adevi\AppData\Local\Programs\Python\Python37\;C:\Users\adevi\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\adevi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\adevi\.dotnet\tools;C:\Users\adevi\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Users\adevi\AppData\Local\Yarn\bin;C:\Exercism;C:\Program Files\heroku\bin;C:\Users\adevi\AppData\Roaming\Composer\vendor\bin;C:\Users\adevi\AppData\Roaming\npm;C:\Users\adevi\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  12.15.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: connect ETIMEDOUT 104.16.24.35:443
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1134:16)
+
+npm manifest: 
+  {
+   "name": "tutory",
+   "version": "1.0.0",
+   "description": "An online tutoring app",
+   "main": "app.js",
+   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+   },
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victor-for-christ/tutory.git"
+   },
+   "keywords": [
+    "Student",
+    "Tutor",
+    "Lesson",
+    "Subject"
+   ],
+   "author": "Adewumi Victor",
+   "license": "ISC",
+   "bugs": {
+    "url": "https://github.com/victor-for-christ/tutory/issues"
+   },
+   "homepage": "https://github.com/victor-for-christ/tutory#readme",
+   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^1.3.2",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.21.2",
+    "hpp": "^0.2.2",
+    "html-to-text": "^5.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.8",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "sharp": "^0.25.2",
+    "slugify": "^1.3.4",
+    "stripe": "7.0.0",
+    "validator": "^11.1.0",
+    "xss-clean": "^0.1.1"
+   },
+   "devDependencies": {
+    "nodemailer": "^6.3.1",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3"
+   }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -14,8 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 104.16.24.35:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1134:16)
+  Error: read ECONNRESET
+      at TLSWrap.onStreamRead (internal/stream_base_commons.js:200:27)
 
 npm manifest: 
   {

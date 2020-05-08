@@ -16,8 +16,16 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategory = catchAsync(async (req, res, next) => {
-
+  const category = await Category.findById(req.params.id);
+  if (!category) return next(new AppError("No category found with that ID", 404)); //If no category found
+  res.status(200).json({
+    status: "success",
+    data: {
+      category
+    }
+  });
 });
+
 exports.getAllCategories = catchAsync(async (req, res, next) => {
 
 });

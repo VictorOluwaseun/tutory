@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 
 const userRouter = require("./routes/userRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
@@ -13,6 +14,9 @@ const app = express();
 
 //middlewares
 app.use(express.json());
+
+//Set security HTTP headers
+app.use(helmet()); //securing the http / https headers
 
 app.use(cors());
 

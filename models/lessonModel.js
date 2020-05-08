@@ -24,6 +24,16 @@ const lessonSchema = new mongoose.Schema({
     required: [true, "A lesson must have a body"]
   },
   bookedBy: {
-
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  },
+  images: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now()
   }
 });
+
+const Lesson = mongoose.model("Lesson", lessonSchema);
+
+module.exports = Lesson;

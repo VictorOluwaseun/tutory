@@ -29,6 +29,12 @@ exports.getSubject = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.setCategoryId = catchAsync(async (req, res, next) => {
+  //Allow nested routes
+  if (!req.body.category) req.body.category = req.params.categoryId;
+  next();
+});
+
 exports.createSubject = catchAsync(async (req, res, next) => {
 
 });

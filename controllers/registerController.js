@@ -2,7 +2,7 @@ const Register = require("../models/registerModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 
-exports.getAllRegister = catchAsync(async (req, res, next) => {
+exports.getAllRegisters = catchAsync(async (req, res, next) => {
   const registers = await Register.find();
   if (!registers.length || !registers) return next(new AppError("No registers found", 404));
   res.status(200).json({

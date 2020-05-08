@@ -26,9 +26,16 @@ exports.getCategory = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllCategories = catchAsync(async (req, res, next) => {
-
+exports.createCategory = catchAsync(async (req, res, next) => {
+  const newCategory = await Category.create(req.body);
+  res.status(201).json({
+    status: "success",
+    data: {
+      category: newCategory
+    }
+  });
 });
+
 exports.getAllCategories = catchAsync(async (req, res, next) => {
 
 });

@@ -146,5 +146,49 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     // the try catch block to do more
     return next(new AppError("There was an error sending the email. Try again later", 500));
   }
+});
 
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  //1. Get user based on the token
+  const hashedToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: {
+      $gt: Date.now()
+    }
+  }); //acutally token is the only thing we have about the user right now, no email and all that //b. putting the expiring into consideration
+
+  //2. If token has not expired, and there is user, set the new password
+  //actually if the token has expired, it will return the user
+  if (!user) {
+    return next(new AppError("Token is invalid or has expired", 400));
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save(); //validation runs here again. 
+  //4. Log the user in, send JWT
+  createSendToken(user, 200, res);
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //1. Get the user from collection
+  //since the user is already logged in, get id from JWT but user id on the request object
+  const user = await User.findById(req.user.id).select("+password");
+
+  //2. Check if the posted current password is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError("Your current password is wrong.", 401));
+  }
+
+  //3. If so, update password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+  //User.findByIdAndUpdate will NOT work as intended!
+  //4. Log User in, Send JWT
+  createSendToken(user, 200, res);
 });

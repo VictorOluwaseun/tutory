@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   title: {
@@ -73,6 +74,10 @@ const userSchema = new mongoose.Schema({
       },
       message: "Passwords are not the same"
     }
+  },
+  category: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Category"
   },
   createdAt: {
     type: Date,

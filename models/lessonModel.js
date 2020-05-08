@@ -11,6 +11,10 @@ const lessonSchema = new mongoose.Schema({
     ref: "Subject",
     required: [true, "A lesson must belong to a subject"]
   },
+  tutor: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  },
   name: {
     type: String,
     trim: true,
@@ -24,6 +28,16 @@ const lessonSchema = new mongoose.Schema({
     required: [true, "A lesson must have a body"]
   },
   bookedBy: {
-
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  },
+  images: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now()
   }
 });
+
+const Lesson = mongoose.model("Lesson", lessonSchema);
+
+module.exports = Lesson;

@@ -1,7 +1,7 @@
 const Subject = require("../models/subjectModel");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.getAllSubjects = catchAsync(async (req, res, next) => {
   let filter = {};
@@ -55,8 +55,23 @@ exports.createSubject = catchAsync(async (req, res, next) => {
 });
 
 exports.updateSubject = catchAsync(async (req, res, next) => {
-
+  const subject = await Subject.findByIdAndUpdate(req.params.id, req.body, {
+    runValidators: true,
+    new: true
+  });
+  if (!subject) return next(new AppError("No subject found with that ID", 404));
+  res.status(200).json({
+    status: "success",
+    data: {
+      subject
+    }
+  })
 });
-exports.deleteSubject = catchAsync(async (req, res, next) => {
 
+exports.deleteSubject = catchAsync(async (req, res, next) => {
+  const subject = await Subject.findByIdAndDelete(req.params.id);
+  if (!subject) return next(new AppError("No subject found with that ID", 404));
+  res.status(204).json({
+    status: "success"
+  })
 });

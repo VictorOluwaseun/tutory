@@ -26,6 +26,7 @@ exports.getRegister = catchAsync(async (req, res, next) => {
 });
 
 exports.createRegister = catchAsync(async (req, res, next) => {
+  req.body.tutor = req.user;
   const newRegister = await Register.create(req.body);
   res.status(201).json({
     status: "success",

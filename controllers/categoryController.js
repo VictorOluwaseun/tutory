@@ -1,6 +1,6 @@
 const Category = require("../models/categoryModel");
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.getAllCategories = catchAsync(async (req, res, next) => {
 

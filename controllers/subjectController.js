@@ -1,7 +1,7 @@
 const Subject = require("../models/subjectModel");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/AppError");
+const AppError = require("../utils/appError");
 
 exports.getAllSubjects = catchAsync(async (req, res, next) => {
   let filter = {};

@@ -11,6 +11,10 @@ const lessonSchema = new mongoose.Schema({
     ref: "Subject",
     required: [true, "A lesson must belong to a subject"]
   },
+  tutor: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  },
   name: {
     type: String,
     trim: true,

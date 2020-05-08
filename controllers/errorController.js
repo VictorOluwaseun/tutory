@@ -40,24 +40,21 @@ const sendErrorDev = (err, req, res) => {
 };
 
 const sendErrorProd = (err, req, res) => {
-  //API
-  if (req.originalUrl.startsWith("/api")) {
-    //Operation, trusted error: send message to client
-    if (err.isOperational) {
-      return res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message
-      });
-    }
-    // Programming or other unknown error:  leak error details should not be leaked
-    //1. Log error
-    console.error("ERROR 💥", err);
-    //2. Send generic message
-    return res.status(500).json({
-      status: 'error',
-      message: 'Something went very wrong!'
+  //Operation, trusted error: send message to client
+  if (err.isOperational) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message
     });
   }
+  // Programming or other unknown error:  leak error details should not be leaked
+  //1. Log error
+  console.error("ERROR 💥", err);
+  //2. Send generic message
+  return res.status(500).json({
+    status: 'error',
+    message: 'Something went very wrong!'
+  });
 };
 
 module.exports = (err, req, res, next) => {

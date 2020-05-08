@@ -1,4 +1,5 @@
 const Subject = require("../models/subjectModel");
+const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 
@@ -7,7 +8,15 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
   if (req.params.categoryId) filter = {
     category: req.params.categoryId
   };
-  const subjects = await Subject.find(filter);
+
+  const features = new APIFeatures(Subject.find(filter), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const subjects = await features;
+
   if (!subjects.length || !subjects) return next(new AppError("No subjects found", 404));
   res.status(200).json({
     status: "success",

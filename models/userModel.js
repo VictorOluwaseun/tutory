@@ -41,23 +41,15 @@ const userSchema = new mongoose.Schema({
     enum: ["student", "tutor", "admin"],
     default: "student"
   },
-  category: {
-    type: [String],
-    enum: {
-      values: ["primary", "JSS", "SSS"],
-      message: "Select a valid category. Category can either be primary, JSS or SSS"
-    },
-    required: [true, "Select category"],
-    validate: {
-      validator: function (el) {
-        return this.role === "student" && el.length === 1;
-      },
-      message: "Student has one category, please select a category"
-    }
-  },
   subject: [{
     type: mongoose.Schema.ObjectId,
-    ref: "Subject"
+    ref: "Subject",
+    validate: {
+      validator: function (el) {
+        return this.role === "tutor" || this.role === "admin";
+      },
+      message: "Student can not add subject"
+    }
   }],
   password: {
     type: String,

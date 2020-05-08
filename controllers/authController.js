@@ -33,8 +33,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     firstName: req.body.firstName,
     email: req.body.email,
     password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt
+    passwordConfirm: req.body.passwordConfirm
   });
 
   createSendToken(newUser, 201, res);
@@ -46,7 +45,7 @@ exports.login = catchAsync(async (req, res, next) => {
     password
   } = req.body;
   //1. check if email and password exist
-  if (!email || !password) return next(new AppError("Please provide ID/email and password", 400));
+  if (!email || !password) return next(new AppError("Please provide email and password", 400));
 
   //2. Check if the user exists and password is correct
   const user = await User.findOne({
@@ -54,7 +53,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }).select("+password");
 
   if (!user || !await (user.correctPassword(password, user.password))) {
-    return next(new AppError("Incorrect ID/email or password", 401))
+    return next(new AppError("Incorrect email or password", 401))
   }
 
   createSendToken(user, 200, res);
@@ -89,7 +88,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //GRANT ACCESS TO PROTECTED ROUTE
-  res.locals.user = currentUser;
+  req.user = currentUser;
   next();
 });
 

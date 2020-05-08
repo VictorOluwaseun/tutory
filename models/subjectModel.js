@@ -16,6 +16,17 @@ const subjectSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User"
   }],
+  register: [{
+    registeredTutors: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User"
+    },
+    qualifications: [String],
+    createdAt: {
+      type: Date,
+      default: Date.now
+    },
+  }],
   createdAt: {
     type: Date,
     default: Date.now()

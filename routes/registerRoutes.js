@@ -8,15 +8,17 @@ const router = express.Router({
 
 router.use(authController.protect);
 
+router.use(authController.restrictTo("tutor"));
+
 router
   .route("/")
   .get(registerController.getAllRegisters)
-  .post(authController.restrictTo("admin"), registerController.createRegister);
+  .post(registerController.createRegister);
 
 router
   .route("/:id")
   .get(registerController.getRegister)
-  .patch(authController.restrictTo("admin"), registerController.updateRegister)
-  .delete(authController.restrictTo("admin"), registerController.deleteRegister);
+  .patch(registerController.updateRegister)
+  .delete(registerController.deleteRegister);
 
 module.exports = router;

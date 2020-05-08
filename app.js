@@ -5,6 +5,10 @@ const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/AppError");
 const app = express();
 
+
+//middlewares
+app.use(express.json());
+
 //ROUTES
 app.use("api/v1/users", userRouter);
 app.use("api/v1/categories", categoryRouter);

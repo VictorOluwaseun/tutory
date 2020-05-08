@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+const cookieParser = require("cookie-parser");
+const xss = require("xss-clean");
+const hpp = require("hpp");
+const compression = require("compression");
+
 
 const userRouter = require("./routes/userRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
@@ -9,16 +15,41 @@ const lessonRouter = require("./routes/lessonRoutes");
 const registerRouter = require("./routes/registerRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/AppError");
+
 const app = express();
 
 
 //middlewares
-app.use(express.json());
+app.use(cors());
 
 //Set security HTTP headers
 app.use(helmet()); //securing the http / https headers
 
-app.use(cors());
+app.use(express.json({
+  limit: "10kb"
+}));
+
+app.use(express.urlencoded({
+  extended: true, // to parse some complex data
+  limit: "10kb"
+})); //The way that form sends data to the server is also called urlencoded
+app.use(cookieParser());
+
+
+
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+
+// Data sanitization against XSS
+app.use(xss()); //this cleans any user input from malicious HTML code basically
+
+// Prevent parameter pollution
+app.use(hpp({
+  whitelist: ["surname", "firstName", "category"]
+}));
+
+app.use(compression()); //To compress the request objects coming from the client
+
 
 //ROUTES
 app.use("api/v1/users", userRouter);

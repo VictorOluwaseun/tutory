@@ -36,8 +36,15 @@ exports.setCategoryId = catchAsync(async (req, res, next) => {
 });
 
 exports.createSubject = catchAsync(async (req, res, next) => {
-
+  const newSubject = await Subject.create(req.body);
+  res.status(201).json({
+    status: "success",
+    data: {
+      subject: newSubject
+    }
+  });
 });
+
 exports.updateSubject = catchAsync(async (req, res, next) => {
 
 });

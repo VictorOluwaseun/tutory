@@ -87,7 +87,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-const User = mongoose.model("User", userSchema);
 
 userSchema.pre("save", async function (next) {
   // only run if password was actually modified 
@@ -150,5 +149,7 @@ userSchema.methods.createPasswordResetToken = function () {
 
   return resetToken;
 };
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

@@ -20,10 +20,10 @@ const app = express();
 
 
 //middlewares
-app.use(cors());
+// app.use(cors());
 
 //Set security HTTP headers
-app.use(helmet()); //securing the http / https headers
+// app.use(helmet()); //securing the http / https headers
 
 app.use(express.json({
   limit: "10kb"
@@ -37,26 +37,26 @@ app.use(cookieParser());
 
 
 
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// // Data sanitization against NoSQL query injection
+// app.use(mongoSanitize());
 
-// Data sanitization against XSS
-app.use(xss()); //this cleans any user input from malicious HTML code basically
+// // Data sanitization against XSS
+// app.use(xss()); //this cleans any user input from malicious HTML code basically
 
-// Prevent parameter pollution
-app.use(hpp({
-  whitelist: ["surname", "firstName", "category"]
-}));
+// // Prevent parameter pollution
+// app.use(hpp({
+//   whitelist: ["surname", "firstName", "category"]
+// }));
 
-app.use(compression()); //To compress the request objects coming from the client
+// app.use(compression()); //To compress the request objects coming from the client
 
 
 //ROUTES
-app.use("api/v1/users", userRouter);
-app.use("api/v1/categories", categoryRouter);
-app.use("api/v1/subjects", subjectRouter);
-app.use("api/v1/lessons", lessonRouter);
-app.use("api/v1/register", registerRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/subjects", subjectRouter);
+app.use("/api/v1/lessons", lessonRouter);
+app.use("/api/v1/register", registerRouter);
 
 app.all("*", (req, res, next) => next(new AppError(`Can't find ${req.originalUrl} on this sever!`, 404)));
 

@@ -29,11 +29,11 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, "Please provide a valid email"]
   },
-  uid: {
-    type: String,
-    unique: true,
-    lowercase: true
-  },
+  // uid: {
+  //   type: String,
+  //   unique: true,
+  //   lowercase: true
+  // },
   photo: {
     type: String,
     default: "default.jpg"

@@ -49,6 +49,11 @@ const filterObj = (obj, ...allowedField) => {
   return newObj;
 };
 
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
+
 exports.createUser = catchAsync(async (req, res, next) => {
   if (req.user.role === "admin" || req.user.role === "tutor") {
     if (req.body.role !== "tutor" && req.body.role !== "student") {

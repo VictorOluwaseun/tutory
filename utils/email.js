@@ -1,6 +1,5 @@
 const fs = require("fs");
 const nodemailer = require("nodemailer");
-const pug = require("pug");
 const htmlToText = require("html-to-text");
 // const catchAsync = require("./catchAsync");
 

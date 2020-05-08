@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
+const Subject = require("./subjectModel");
 
 const categorySchema = new mongoose.Schema({
   name: {
@@ -30,6 +31,14 @@ const categorySchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Subject"
   }]
+});
+
+
+categorySchema.pre("findOneAndRemove", async function (next) {
+  await Subject.deleteMany({
+    category: this._id
+  });
+  next();
 });
 
 const Category = mongoose.model("Category", categorySchema);

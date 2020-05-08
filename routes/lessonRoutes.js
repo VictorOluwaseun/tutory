@@ -10,8 +10,8 @@ router.use(authController.protect);
 
 router
   .route("/")
-  .get(lessonController.getAllLesson)
-  .post(authController.restrictTo("admin"), lessonController.bookLesson);
+  .get(authController.restrictTo("admin"), lessonController.getAllLesson)
+  .post(authController.restrictTo("admin", "student"), lessonController.bookLesson);
 
 router
   .route("/:id")

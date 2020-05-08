@@ -41,6 +41,14 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   next();
 });
 
+const filterObj = (obj, ...allowedField) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedField.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
+
 exports.createUser = catchAsync(async (req, res, next) => {
   if (req.user.role === "admin" || req.user.role === "tutor") {
     if (req.body.role !== "tutor" && req.body.role !== "student") {

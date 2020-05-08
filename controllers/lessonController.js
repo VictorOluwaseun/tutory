@@ -25,7 +25,7 @@ exports.getLesson = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createLesson = catchAsync(async (req, res, next) => {
+exports.bookLesson = catchAsync(async (req, res, next) => {
   const newLesson = await Lesson.create(req.body);
   res.status(201).json({
     status: "success",

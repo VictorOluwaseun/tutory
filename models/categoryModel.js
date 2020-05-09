@@ -13,7 +13,7 @@ const categorySchema = new mongoose.Schema({
     required: [true, "Category name is required!"]
   },
   value: {
-    type: Number,
+    type: String,
     required: [true, "Category value is required!"],
     enum: {
       values: [1, 2, 3, 4, 5, 6],

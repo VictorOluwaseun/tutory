@@ -4,7 +4,7 @@ const AppError = require("../utils/appError");
 
 exports.getAllCategories = catchAsync(async (req, res, next) => {
 
-  const categories = await Category.find();
+  const categories = await Category.find().select("__v");
   if (!categories.length || !categories) return next(new AppError("No categories found", 404));
   res.status(200).json({
     status: "success",
@@ -16,7 +16,7 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategory = catchAsync(async (req, res, next) => {
-  const category = await Category.findById(req.params.id);
+  const category = await Category.findById(req.params.id).select("__v");
   if (!category) return next(new AppError("No category found with that ID", 404)); //If no category found
   res.status(200).json({
     status: "success",

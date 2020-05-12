@@ -68,7 +68,7 @@ exports.getAllTutors = (req, res, next) => {
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   //BUILD THE QUERY
 
-  const features = new APIFeatures(User.find(), req.query)
+  const features = await new APIFeatures(User.find(), req.query)
     .filter()
     .sort()
     .limitFields()

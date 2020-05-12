@@ -58,6 +58,12 @@ categorySchema.pre("save", async function (next) {
 
 
 //Query Middleware
+
+categorySchema.pre(/^find/, function (next) {
+  this.find().select("-__v");
+  next();
+})
+
 categorySchema.pre("findOneAndRemove", async function (next) {
   await Subject.deleteMany({
     category: this._id

@@ -39,11 +39,11 @@ subjectSchema.pre("save", async function (next) {
   const tutorsFilter = this.tutors.filter(el => el.role === "student");
   if (tutorsFilter.length) return next(new AppError("Student can not be a tutor.", 400));
   next();
-})
-// subjectSchema.pre(/^find/, async function(next) {
+});
 
-//   await User.findById()
-// })
+subjectSchema.pre(/^find/, async function (next) {
+  this.find().select("-__v");
+})
 
 const Subject = mongoose.model("Subject", subjectSchema);
 

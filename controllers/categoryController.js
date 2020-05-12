@@ -1,10 +1,21 @@
 const Category = require("../models/categoryModel");
+const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
+exports.sortCategories = catchAsync(async (req, res, next) => {
+
+});
+
 exports.getAllCategories = catchAsync(async (req, res, next) => {
 
-  const categories = await Category.find().select("__v");
+  const features = new APIFeatures(Category.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const categories = await features;
   if (!categories.length || !categories) return next(new AppError("No categories found", 404));
   res.status(200).json({
     status: "success",
@@ -16,7 +27,7 @@ exports.getAllCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategory = catchAsync(async (req, res, next) => {
-  const category = await Category.findById(req.params.id).select("__v");
+  const category = await Category.findById(req.params.id);
   if (!category) return next(new AppError("No category found with that ID", 404)); //If no category found
   res.status(200).json({
     status: "success",

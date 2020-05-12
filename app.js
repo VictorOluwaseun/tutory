@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const compression = require("compression");
+const morgan = require("morgan");
 
 
 const userRouter = require("./routes/userRoutes");
@@ -23,7 +24,11 @@ const app = express();
 // app.use(cors());
 
 //Set security HTTP headers
-// app.use(helmet()); //securing the http / https headers
+app.use(helmet()); //securing the http / https headers
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"))
+}
 
 app.use(express.json({
   limit: "10kb"
@@ -37,18 +42,18 @@ app.use(cookieParser());
 
 
 
-// // Data sanitization against NoSQL query injection
-// app.use(mongoSanitize());
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
 
-// // Data sanitization against XSS
-// app.use(xss()); //this cleans any user input from malicious HTML code basically
+// Data sanitization against XSS
+app.use(xss()); //this cleans any user input from malicious HTML code basically
 
-// // Prevent parameter pollution
-// app.use(hpp({
-//   whitelist: ["surname", "firstName", "category"]
-// }));
+// Prevent parameter pollution
+app.use(hpp({
+  whitelist: ["surname", "firstName", "category", "role"]
+}));
 
-// app.use(compression()); //To compress the request objects coming from the client
+app.use(compression()); //To compress the request objects coming from the client
 
 
 //ROUTES

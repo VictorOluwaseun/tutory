@@ -20,8 +20,10 @@ router.delete("/deleteMe", userController.deleteMe);
 
 router
   .route("/")
-  // .get(userController.getAllUsers)
+  .get(userController.getAllUsers)
   .post(authController.restrictTo("admin"), userController.createUser);
+
+router.get("/tutors", authController.restrictTo("admin"), userController.getAllTutors, userController.getAllUsers);
 
 router
   .route("/:id")

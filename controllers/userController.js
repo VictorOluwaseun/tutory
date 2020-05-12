@@ -1,6 +1,7 @@
 const multer = require("multer");
 const sharp = require("sharp");
 const User = require("../models/userModel");
+const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
@@ -54,6 +55,67 @@ exports.getMe = (req, res, next) => {
   next();
 };
 
+
+exports.getAllTutors = (req, res, next) => {
+  // req.query.limit = "5";
+  // req.query.sort = "surname";
+  req.query.role = "tutor";
+  next();
+}
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  //BUILD THE QUERY
+  //1a. Advanced Filtering
+  const queryObj = {
+    ...req.query
+  };
+  const excludedFields = ["page", "sort", "limit", "fields"];
+  excludedFields.forEach(el => delete queryObj[el]);
+
+  //1b. Advanced Filtering
+  let queryStr = JSON.stringify(queryObj);
+
+  queryStr = queryStr.replace(/\b{gte|lte|gt|lt|ne|ne}\b/g, match => `$${match}`); //The last ne is ignored, ne is doubled
+
+  console.log(queryStr);
+
+
+  //gte, lte, lt gt, ne
+
+  const query = User.find(JSON.parse(queryStr));
+  // console.log(queryObj);
+  // { role: { ne: 'student' } }
+  // console.log(req.query);
+  //Project method
+  // const users = await User.find({
+  //   role: {
+  //     $ne: "tutor"
+  //   }
+  // });
+  //EXECUTE THE QUERYA
+  const users = await query;
+  // .where("role")
+  // .equals("tutor");
+
+
+  // const features =
+  //   new APIFeatures(
+  //     User.find());
+  // // .filter()
+  // // .sort()
+  // // .limitFields()
+  // // .paginate();
+
+  // const users = await features;
+  res.status(200).json({
+    status: "success",
+    result: users.length,
+    data: {
+      data: users
+    }
+  })
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   //1. create error is user posts password data
   if (req.body.password || req.body.passwordConfirm) {
@@ -90,7 +152,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 exports.createUser = catchAsync(async (req, res, next) => {
   //This is restricted to admin
-  const newUser = await User.create(req.body);
+  const newUser = await User.create(req.body); //Admin can make anyone an admin provided user is not a student
   res.status(200).json({
     status: "success",
     data: newUser

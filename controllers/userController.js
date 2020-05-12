@@ -57,56 +57,26 @@ exports.getMe = (req, res, next) => {
 
 
 exports.getAllTutors = (req, res, next) => {
-  // req.query.limit = "5";
-  // req.query.sort = "surname";
-  req.query.role = "tutor";
+  req.query.limit = "5";
+  req.query.sort = "role";
+  req.query.role = {
+    $ne: "student"
+  };
   next();
 }
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   //BUILD THE QUERY
-  //1a. Advanced Filtering
-  const queryObj = {
-    ...req.query
-  };
-  const excludedFields = ["page", "sort", "limit", "fields"];
-  excludedFields.forEach(el => delete queryObj[el]);
 
-  //1b. Advanced Filtering
-  let queryStr = JSON.stringify(queryObj);
+  const features = new APIFeatures(User.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
-  queryStr = queryStr.replace(/\b{gte|lte|gt|lt|ne|ne}\b/g, match => `$${match}`); //The last ne is ignored, ne is doubled
+  //EXECUTE THE QUERY
+  const users = await features;
 
-  console.log(queryStr);
-
-
-  //gte, lte, lt gt, ne
-
-  const query = User.find(JSON.parse(queryStr));
-  // console.log(queryObj);
-  // { role: { ne: 'student' } }
-  // console.log(req.query);
-  //Project method
-  // const users = await User.find({
-  //   role: {
-  //     $ne: "tutor"
-  //   }
-  // });
-  //EXECUTE THE QUERYA
-  const users = await query;
-  // .where("role")
-  // .equals("tutor");
-
-
-  // const features =
-  //   new APIFeatures(
-  //     User.find());
-  // // .filter()
-  // // .sort()
-  // // .limitFields()
-  // // .paginate();
-
-  // const users = await features;
   res.status(200).json({
     status: "success",
     result: users.length,

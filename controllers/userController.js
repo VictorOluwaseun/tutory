@@ -60,7 +60,7 @@ exports.getAllTutors = (req, res, next) => {
   req.query.limit = "5";
   req.query.sort = "role";
   req.query.role = {
-    $ne: "student"
+    ne: "student"
   };
   next();
 }

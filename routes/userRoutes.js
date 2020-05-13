@@ -24,9 +24,10 @@ router
   .post(authController.restrictTo("admin"), userController.createUser);
 
 router.get("/tutors", authController.restrictTo("admin", "student"), userController.getAllTutors, userController.getAllUsers);
-router.get("/tutors/:id",
-  authController.restrictTo("admin"),
-  userController.getAllTutors, userController.getUser);
+router
+  .route("/tutors/:id")
+  .get(authController.restrictTo("admin"), userController.getAllTutors, userController.getUser)
+  .post(authController.restrictTo("admin"), userController.updateUser);
 
 
 router

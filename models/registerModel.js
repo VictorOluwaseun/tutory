@@ -18,6 +18,11 @@ const registerSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Subject"
   },
+  approved: {
+    type: Boolean,
+    select: false,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now()
@@ -42,3 +47,5 @@ registerSchema.pre(/^find/, function (next) {
 const Register = mongoose.model("Register", registerSchema);
 
 module.exports = Register;
+
+//In a category, nested route

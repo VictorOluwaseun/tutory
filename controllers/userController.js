@@ -105,25 +105,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.searchTutors = (req, res, next) => {
-//   //Instant search
-
-//   console.log(req.query.search);
-
-//   const users = req.users;
-
-//   console.log(req.users);
-
-
-//   res.status(200).json({
-//     status: "success",
-//     result: users.length,
-//     data: {
-//       data: users
-//     }
-//   })
-// }
-
 exports.updateMe = catchAsync(async (req, res, next) => {
   //1. create error is user posts password data
   if (req.body.password || req.body.passwordConfirm) {
@@ -146,6 +127,30 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return next(new AppError("No user found with that ID", 404));
+  // const copyUser = {
+  //   ...user,
+  //   ...req.body
+  // };
+  // console.log(copyUser);
+
+  user.active = req.body.active;
+  user.save({
+    validateBeforeSave: false
+  });
+  res.status(200).json({
+    status: "success",
+    data: {
+      user
+    }
+  })
+});
+
+
+
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, {

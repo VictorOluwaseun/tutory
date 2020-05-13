@@ -1,10 +1,13 @@
 const express = require("express");
 const subjectController = require("../controllers/subjectController");
 const authController = require("../controllers/authController");
+const registerRouter = require("./registerRoutes");
 
 const router = express.Router({
   mergeParams: true
 });
+
+router.use("/:subjectId/register", registerRouter);
 
 router.use(authController.protect);
 

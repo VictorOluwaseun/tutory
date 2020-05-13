@@ -40,6 +40,10 @@ app.use(express.urlencoded({
 })); //The way that form sends data to the server is also called urlencoded
 app.use(cookieParser());
 
+// app.use((req, res, next) => {
+//   console.log(req.query);
+//   next()
+// })
 
 
 // Data sanitization against NoSQL query injection

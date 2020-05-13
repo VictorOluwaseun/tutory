@@ -25,6 +25,11 @@ router
 
 router.get("/tutors", authController.restrictTo("admin"), userController.getAllTutors, userController.getAllUsers);
 
+// router.get("/tutors/:search",
+//   authController.restrictTo("admin", "student"),
+//   userController.getAllTutors, userController.getAllUsers, userController.searchTutors);
+
+
 router
   .route("/:id")
 // .get(userController.getUser)

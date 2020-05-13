@@ -14,16 +14,25 @@ class APIFeatures {
     // debugger
     excludedFields.forEach(el => delete queryObj[el]);
     // console.log(queryObj);
-    // console.log(queryObj);
+    console.log(queryObj);
+
+    // Lower case
+    for (const [key, value] of Object.entries(queryObj)) {
+      if (typeof value === "string") queryObj[key] = value.toLowerCase();
+    }
 
     //1b. Adevanced filetering
     let queryStr = JSON.stringify(queryObj);
 
     queryStr = queryStr.replace(/\b{gte|gt|lte|lt|ne|lt}\b/g, match => `$${match}`);
 
-    console.log(JSON.parse(queryStr));
+    queryStr = JSON.parse(queryStr);
 
-    this.query = this.query.find(JSON.parse(queryStr));
+    console.log(queryStr);
+
+
+    this.query = this.query.find(queryStr);
+
     // this.query = this.query.find();
     // console.log(this.query);
     // let query = Subject.find(JSON.parse(queryStr));
@@ -32,7 +41,7 @@ class APIFeatures {
 
   sort() {
     if (this.queryString.sort) {
-      console.log(this.queryString.sort);
+      // console.log(this.queryString.sort);
       const sortBy = this.queryString.sort.split(',').join(" ");
       // console.log(sortBy);
       this.query = this.query.sort(sortBy);

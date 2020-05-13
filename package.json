@@ -4,7 +4,9 @@
  "description": "An online tutoring app",
  "main": "app.js",
  "scripts": {
-  "start": "nodemon server"
+  "start": "nodemon server",
+  "seed": "node dev-data/data/import-dev-data.js --import",
+  "unseed": "node dev-data/data/import-dev-data.js --delete"
  },
  "repository": {
   "type": "git",

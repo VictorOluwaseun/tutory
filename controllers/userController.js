@@ -58,7 +58,8 @@ exports.getMe = (req, res, next) => {
 
 exports.getAllTutors = (req, res, next) => {
   req.query.limit = "5";
-  req.query.sort = "role";
+  req.query.sort = "firstName";
+  // req.query.role = "tutor";
   req.query.role = {
     ne: "student"
   };
@@ -75,7 +76,14 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     .paginate();
 
   //EXECUTE THE QUERY
-  const users = await features;
+  let users = await features;
+
+
+
+  if (req.params.search) {
+    req.users = users;
+    return next();
+  }
 
   res.status(200).json({
     status: "success",
@@ -85,6 +93,25 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     }
   })
 });
+
+// exports.searchTutors = (req, res, next) => {
+//   //Instant search
+
+//   console.log(req.query.search);
+
+//   const users = req.users;
+
+//   console.log(req.users);
+
+
+//   res.status(200).json({
+//     status: "success",
+//     result: users.length,
+//     data: {
+//       data: users
+//     }
+//   })
+// }
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   //1. create error is user posts password data

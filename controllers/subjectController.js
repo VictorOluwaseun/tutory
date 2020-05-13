@@ -9,6 +9,8 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
     category: req.params.categoryId
   };
 
+  req.query.sort = "name";
+
   const features = new APIFeatures(Subject.find(filter), req.query)
     .filter()
     .sort()

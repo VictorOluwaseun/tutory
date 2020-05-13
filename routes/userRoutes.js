@@ -23,11 +23,10 @@ router
   .get(userController.getAllUsers)
   .post(authController.restrictTo("admin"), userController.createUser);
 
-router.get("/tutors", authController.restrictTo("admin"), userController.getAllTutors, userController.getAllUsers);
-
-// router.get("/tutors/:search",
-//   authController.restrictTo("admin", "student"),
-//   userController.getAllTutors, userController.getAllUsers, userController.searchTutors);
+router.get("/tutors", authController.restrictTo("admin", "student"), userController.getAllTutors, userController.getAllUsers);
+router.get("/tutors/:id",
+  authController.restrictTo("admin"),
+  userController.getAllTutors, userController.getUser);
 
 
 router

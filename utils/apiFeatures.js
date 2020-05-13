@@ -17,20 +17,21 @@ class APIFeatures {
     console.log(queryObj);
 
     // Lower case
-    for (const [key, value] of Object.entries(queryObj)) {
-      if (typeof value === "string") queryObj[key] = value.toLowerCase();
-    }
+    // for (const [key, value] of Object.entries(queryObj)) {
+    //   if (typeof value === "string") queryObj[key] = value.toLowerCase();
+    // }
 
     //1b. Adevanced filetering
     let queryStr = JSON.stringify(queryObj);
 
-    queryStr = queryStr.replace(/\b{gte|gt|lte|lt|ne|lt}\b/g, match => `$${match}`);
+    queryStr = queryStr.replace(/\b{gte|gt|lte|lt|ne|regex|options|lt}\b/g, match => `$${match}`);
 
     queryStr = JSON.parse(queryStr);
 
     console.log(queryStr);
-
-
+    // { firstName: 'jesuseun', role: { '$ne': 'student' } }
+    //{ $regex: "s", $options: "i" }
+    // { firstName: {$regex: "jesuseun", $options: i}'jesuseun', role: { '$ne': 'student' } }
     this.query = this.query.find(queryStr);
 
     // this.query = this.query.find();

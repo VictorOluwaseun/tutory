@@ -94,6 +94,17 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   })
 });
 
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return next(new AppError("No user found with that ID", 404)); //If no category found
+  res.status(200).json({
+    status: "success",
+    data: {
+      user
+    }
+  });
+});
+
 // exports.searchTutors = (req, res, next) => {
 //   //Instant search
 

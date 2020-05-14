@@ -25,6 +25,15 @@ exports.getRegister = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.setTutorCategorySubjectId = catchAsync(async (req, res, next) => {
+  //To allow nested routes
+  if (!req.body.tutor) req.body.tutor = req.user.id;
+  if (!req.body.category) req.body.category = req.params.categoryId;
+  if (!req.body.subject) req.body.subject = req.params.subjectId;
+
+  next();
+});
+
 exports.createRegister = catchAsync(async (req, res, next) => {
   req.body.tutor = req.user;
   const newRegister = await Register.create(req.body);

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 const User = require("./userModel");
 const AppError = require("../utils/AppError");
 
@@ -6,6 +7,7 @@ const subjectSchema = new mongoose.Schema({
   name: {
     type: String,
     lowercase: true,
+    unique: false,
     trim: true,
     required: [true, "Provide the subject name"]
   },
@@ -15,8 +17,7 @@ const subjectSchema = new mongoose.Schema({
   },
   tutors: [{
     type: mongoose.Schema.ObjectId,
-    ref: "User",
-    unique: true
+    ref: "User"
   }],
   createdAt: {
     type: Date,
@@ -32,11 +33,25 @@ const subjectSchema = new mongoose.Schema({
   }
 });
 
+subjectSchema.index({
+  name: 1,
+  category: 1
+}, {
+  unique: true
+});
+
 subjectSchema.pre("save", async function (next) {
   const tutorsPromises = this.tutors.map(async id => await User.findById(id));
   this.tutors = await Promise.all(tutorsPromises);
   const tutorsFilter = this.tutors.filter(el => el.role === "student");
   if (tutorsFilter.length) return next(new AppError("Student can not be a tutor.", 400));
+  next();
+});
+
+subjectSchema.pre("save", function (next) {
+  this.slug = slugify(this.name, {
+    lower: true
+  });
   next();
 });
 

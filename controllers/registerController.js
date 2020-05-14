@@ -25,7 +25,10 @@ exports.getAllRegisters = catchAsync(async (req, res, next) => {
 });
 
 exports.getRegister = catchAsync(async (req, res, next) => {
-  const register = await Register.findById(req.params.id);
+  const register = await Register.findOne({
+    _id: req.params.id,
+    tutor: req.user.id
+  });
   if (!register) return next(new AppError("No register found with that ID", 404)); //If no register found
   res.status(200).json({
     status: "success",
@@ -72,7 +75,10 @@ exports.createRegister = catchAsync(async (req, res, next) => {
 });
 
 exports.updateRegister = catchAsync(async (req, res, next) => {
-  const register = await Register.findByIdAndUpdate(req.params.id, req.body, {
+  const register = await Register.findOneAndUpdate({
+    _id: req.params.id,
+    tutor: req.user.id
+  }, req.body, {
     runValidators: true,
     new: true
   });
@@ -86,7 +92,10 @@ exports.updateRegister = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteRegister = catchAsync(async (req, res, next) => {
-  const register = await Register.findByIdAndDelete(req.params.id);
+  const register = await Register.findOneAndDelete({
+    _id: req.params.id,
+    tutor: req.user.id
+  });
   if (!register) return next(new AppError("No register found with that ID", 404));
   res.status(204).json({
     status: "success"

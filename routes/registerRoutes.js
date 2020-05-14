@@ -8,19 +8,21 @@ const router = express.Router({
 
 router.use(authController.protect);
 
-router.use(authController.restrictTo("tutor"));
-
 router
   .route("/")
   .get(
-    // authController.restrictTo("admin", "tutor"),
+    authController.restrictTo("admin", "tutor"),
     registerController.getAllRegisters)
-  .post(registerController.filterBody, registerController.setTutorCategorySubjectId, registerController.createRegister);
+  .post(authController.restrictTo("tutor"), registerController.filterBody, registerController.setTutorCategorySubjectId, registerController.createRegister);
+
+
+router.use(authController.restrictTo("tutor"));
+
 
 router
   .route("/:id")
   .get(registerController.getRegister)
-  .patch(registerController.updateRegister)
+  .patch(registerController.filterBody, registerController.updateRegister)
   .delete(registerController.deleteRegister);
 
 module.exports = router;

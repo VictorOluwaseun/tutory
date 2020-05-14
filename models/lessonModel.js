@@ -6,7 +6,7 @@ const lessonSchema = new mongoose.Schema({
     ref: "Category",
     required: [true, "A lesson must belong to category"]
   },
-  subject: {
+  subject: { //Parent Referencing
     type: mongoose.Schema.ObjectId,
     ref: "Subject",
     required: [true, "A lesson must belong to a subject"]

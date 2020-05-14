@@ -15,10 +15,11 @@ const subjectSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Category"
   },
-  tutors: [{
-    type: mongoose.Schema.ObjectId,
-    ref: "User"
-  }],
+
+  // tutors: [{
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "User"
+  // }],
   createdAt: {
     type: Date,
     default: Date.now()
@@ -39,6 +40,13 @@ subjectSchema.index({
 }, {
   unique: true
 });
+
+//Virtual Populate
+subjectSchema.virtual("tutors", {
+  ref: "Register",
+  foreignField: "subject",
+  localField: "_id"
+})
 
 subjectSchema.pre("save", async function (next) {
   const tutorsPromises = this.tutors.map(async id => await User.findById(id));

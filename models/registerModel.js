@@ -19,7 +19,6 @@ const registerSchema = new mongoose.Schema({
   },
   approved: {
     type: Boolean,
-    select: false,
     default: false
   },
   createdAt: {

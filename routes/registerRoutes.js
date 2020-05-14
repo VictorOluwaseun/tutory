@@ -11,7 +11,7 @@ router.use(authController.protect);
 router
   .route("/")
   .get(
-    authController.restrictTo("admin", "tutor"),
+    authController.restrictTo("tutor"),
     registerController.getAllRegisters)
   .post(authController.restrictTo("tutor"), registerController.filterBody, registerController.setTutorCategorySubjectId, registerController.createRegister);
 

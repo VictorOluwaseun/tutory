@@ -30,7 +30,7 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
 });
 
 exports.getSubject = catchAsync(async (req, res, next) => {
-  const subject = await Subject.findById(req.params.id)
+  const subject = await Subject.findById(req.params.id).populate("tutors")
   // .populate({
   //   path: "category",
   //   select: "-subjects"

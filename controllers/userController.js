@@ -59,10 +59,10 @@ exports.getMe = (req, res, next) => {
 exports.getAllTutors = (req, res, next) => {
   req.query.limit = "5";
   req.query.sort = "firstName";
-  // req.query.role = "tutor";
-  req.query.role = {
-    ne: "student"
-  };
+  req.query.role = "tutor";
+  // req.query.role = {
+  //   ne: "student"
+  // };
   next();
 }
 

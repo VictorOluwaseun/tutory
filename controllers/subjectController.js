@@ -30,7 +30,11 @@ exports.getAllSubjects = catchAsync(async (req, res, next) => {
 });
 
 exports.getSubject = catchAsync(async (req, res, next) => {
-  const subject = await Subject.findById(req.params.id);
+  const subject = await Subject.findById(req.params.id)
+  // .populate({
+  //   path: "category",
+  //   select: "-subjects"
+  // });
   if (!subject) return next(new AppError("No subject found with that ID", 404)); //If no subject found
   res.status(200).json({
     status: "success",

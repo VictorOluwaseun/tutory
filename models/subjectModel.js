@@ -43,7 +43,18 @@ subjectSchema.pre("save", async function (next) {
 
 subjectSchema.pre(/^find/, async function (next) {
   this.find().select("-__v");
-})
+  next();
+});
+
+subjectSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+    select: "-subjects"
+  });
+  next();
+});
+
+
 
 const Subject = mongoose.model("Subject", subjectSchema);
 

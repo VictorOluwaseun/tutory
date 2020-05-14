@@ -5,7 +5,6 @@ const AppError = require("../utils/AppError");
 const subjectSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true,
     lowercase: true,
     trim: true,
     required: [true, "Provide the subject name"]

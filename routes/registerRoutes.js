@@ -12,8 +12,10 @@ router.use(authController.restrictTo("tutor"));
 
 router
   .route("/")
-  .get(registerController.getAllRegisters)
-  .post(registerController.createRegister);
+  .get(
+    // authController.restrictTo("admin", "tutor"),
+    registerController.getAllRegisters)
+  .post(registerController.filterBody, registerController.setTutorCategorySubjectId, registerController.createRegister);
 
 router
   .route("/:id")

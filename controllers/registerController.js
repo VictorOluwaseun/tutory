@@ -1,9 +1,19 @@
 const Register = require("../models/registerModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
+const {
+  filterUnwanted
+} = require("../utils/filterObj");
 
 exports.getAllRegisters = catchAsync(async (req, res, next) => {
-  const registers = await Register.find();
+  let filter = {};
+  if (req.user.role === "tutor") {
+    filter = {
+      tutor: req.user.id
+    }
+  }
+
+  const registers = await Register.find(filter);
   if (!registers.length || !registers) return next(new AppError("No registers found", 404));
   res.status(200).json({
     status: "success",
@@ -25,18 +35,34 @@ exports.getRegister = catchAsync(async (req, res, next) => {
   });
 });
 
+// exports.filterBody = catchAsync(async (req, res, next) => {
+//   const filteredBody = filterObj(req.body, "qualifications");
+//   req.body = filteredBody;
+//   next();
+// });
+
+exports.filterBody = catchAsync(async (req, res, next) => {
+  filterUnwanted(req.body, "tutor", "category", "subject", "approved", "createdAt");
+  next();
+});
+
 exports.setTutorCategorySubjectId = catchAsync(async (req, res, next) => {
   //To allow nested routes
   if (!req.body.tutor) req.body.tutor = req.user.id;
   if (!req.body.category) req.body.category = req.params.categoryId;
   if (!req.body.subject) req.body.subject = req.params.subjectId;
 
+  console.log(req.params);
+
+
   next();
 });
 
 exports.createRegister = catchAsync(async (req, res, next) => {
-  req.body.tutor = req.user;
+  // req.body.tutor = req.user;
   const newRegister = await Register.create(req.body);
+  console.log(req.body);
+
   res.status(201).json({
     status: "success",
     data: {

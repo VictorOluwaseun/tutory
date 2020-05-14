@@ -4,13 +4,10 @@ const registerSchema = new mongoose.Schema({
   tutor: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
+    default: "5c8a1f292f8fb814b56fa184",
     required: [true, "A tutor must register"]
   },
   qualifications: [String],
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
   category: {
     type: mongoose.Schema.ObjectId,
     ref: "Category"
@@ -41,9 +38,11 @@ const registerSchema = new mongoose.Schema({
 registerSchema.path("qualifications").required(true, "Please fill in your qualification(s)");
 
 registerSchema.pre(/^find/, function (next) {
-  this.find({
-    tutor: this.tutor
-  });
+  // console.log(this.tutor);
+  // this.find({
+  //   tutor: this.tutor
+  // });
+
   next();
 })
 

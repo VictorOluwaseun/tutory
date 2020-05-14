@@ -7,7 +7,7 @@ const router = express.Router({
   mergeParams: true
 });
 
-router.use("/:subjectId/register", registerRouter);
+router.use("/:subjectId/registers", registerRouter);
 
 router.use(authController.protect);
 

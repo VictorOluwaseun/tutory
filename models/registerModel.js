@@ -32,6 +32,7 @@ const registerSchema = new mongoose.Schema({
   }
 });
 
+
 registerSchema.pre(/^find/, function (next) {
   this.find({
     tutor: this.tutor

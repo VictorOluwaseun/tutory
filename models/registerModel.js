@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const registerSchema = new mongoose.Schema({
   tutor: {
     type: mongoose.Schema.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: [true, "A tutor must register"]
   },
   qualifications: [String],
   createdAt: {
@@ -16,13 +17,13 @@ const registerSchema = new mongoose.Schema({
   },
   subject: {
     type: mongoose.Schema.ObjectId,
-    ref: "Subject"
+    ref: "Subject",
+    required: [true, "The subject is required!"]
   },
   createdAt: {
     type: Date,
     default: Date.now()
   },
-  slug: String,
 }, {
   toJSON: {
     virtuals: true
@@ -31,6 +32,8 @@ const registerSchema = new mongoose.Schema({
     virtuals: true
   }
 });
+
+registerSchema.path("qualifications").required(true, "Please fill in your qualification(s)");
 
 registerSchema.pre(/^find/, function (next) {
   this.find({

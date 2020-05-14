@@ -14,14 +14,12 @@ const userSchema = new mongoose.Schema({
   surname: {
     type: String,
     trim: true,
-    lowercase: true,
     minlength: [3, "A name should be at least 3 characters"],
     required: [true, "Please provide your surname"]
   },
   firstName: {
     type: String,
     trim: true,
-    lowercase: true,
     minlength: [3, "A name should be at least 3 characters"],
     required: [true, "Please provide your First Name"]
   },

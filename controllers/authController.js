@@ -33,6 +33,18 @@ const createSendToken = (user, statusCode, res) => {
   })
 };
 
+exports.signupTutor = catchAsync(async (req, res, next) => {
+  const newUser = await User.create({
+    surname: req.body.surname,
+    firstName: req.body.firstName,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+    role: "tutor"
+  });
+  createSendToken(newUser, 201, res);
+});
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     surname: req.body.surname,

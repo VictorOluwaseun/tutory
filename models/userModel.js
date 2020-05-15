@@ -26,13 +26,13 @@ const userSchema = new mongoose.Schema({
   otherName: {
     type: String,
     trim: true,
-    lowercase: true,
     minlength: [3, "A name should be at least 3 characters"],
   },
   email: {
     type: String,
     unique: true,
     lowercase: true,
+    required: [true, "Your email is required!"],
     validate: [validator.isEmail, "Please provide a valid email"]
   },
   // uid: {

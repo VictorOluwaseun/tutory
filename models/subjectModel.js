@@ -49,6 +49,7 @@ subjectSchema.virtual("tutors", {
 })
 
 subjectSchema.pre("save", async function (next) {
+  if (!this.tutors) return next();
   const tutorsPromises = this.tutors.map(async id => await User.findById(id));
   this.tutors = await Promise.all(tutorsPromises);
   const tutorsFilter = this.tutors.filter(el => el.role === "student");

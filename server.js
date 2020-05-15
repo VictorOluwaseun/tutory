@@ -8,7 +8,8 @@ dotenv.config({
 const app = require("./app");
 
 mongoose.connect(
-  process.env.DATABASE_LOCAL, {
+  // process.env.DATABASE_LOCAL, {
+  process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

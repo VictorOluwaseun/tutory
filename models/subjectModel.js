@@ -23,7 +23,7 @@ const subjectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  slug: String,
+  // slug: String,
 }, {
   toJSON: {
     virtuals: true
@@ -56,14 +56,14 @@ subjectSchema.pre("save", async function (next) {
   next();
 });
 
-subjectSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, {
-    lower: true
-  });
-  next();
-});
+// subjectSchema.pre("save", function (next) {
+//   this.slug = slugify(this.name, {
+//     lower: true
+//   });
+//   next();
+// });
 
-subjectSchema.pre(/^find/, async function (next) {
+subjectSchema.pre(/^find/, function (next) {
   this.find().select("-__v");
   next();
 });

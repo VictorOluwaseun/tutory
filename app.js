@@ -19,7 +19,7 @@ const AppError = require("./utils/AppError");
 
 const app = express();
 
-app.use("trust proxy");
+app.enable("trust proxy");
 
 //middlewares
 // app.use(cors());

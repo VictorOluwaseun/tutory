@@ -20,4 +20,12 @@ mongoose.connect(
 const PORT = process.env.PORT;
 const HOSTNAME = process.env.LOCAL_SERVER
 
-app.listen(PORT, () => console.info("Server has started!"));
+const server = app.listen(PORT, () => console.info("Server has started!"));
+
+process.on('unhandledRejection', err => {
+  console.log(err.name, err.message);
+  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  server.close(() => { //Server was created because it was needed here 
+    process.exit(1);
+  });
+});

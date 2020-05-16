@@ -61,6 +61,7 @@ app.use(compression()); //To compress the request objects coming from the client
 
 
 //ROUTES
+// app.use("/", userRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/subjects", subjectRouter);

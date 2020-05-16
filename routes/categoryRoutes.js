@@ -7,11 +7,13 @@ const router = express.Router();
 
 router.use("/:categoryId/subjects", subjectRouter);
 
+router.get("/", catergoryController.getAllCategories);
+
 router.use(authController.protect)
 
 router
   .route("/")
-  .get(catergoryController.getAllCategories)
+  // .get(catergoryController.getAllCategories)
   .post(authController.restrictTo("admin"), catergoryController.createCategory);
 
 router

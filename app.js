@@ -15,7 +15,7 @@ const subjectRouter = require("./routes/subjectRoutes");
 const lessonRouter = require("./routes/lessonRoutes");
 const registerRouter = require("./routes/registerRoutes");
 const globalErrorHandler = require("./controllers/errorController");
-const AppError = require("./utils/appError");
+const AppError = require("./utils/AppError");
 
 const app = express();
 

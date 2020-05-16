@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const User = require("./userModel");
-const AppError = require("../utils/appError");
+const AppError = require("../utils/AppError");
 
 const subjectSchema = new mongoose.Schema({
   name: {

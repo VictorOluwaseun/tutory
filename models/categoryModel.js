@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require('validator');
 const Subject = require("./subjectModel");
-const AppError = require("../utils/appError");
+const AppError = require("../utils/AppError");
 
 const categorySchema = new mongoose.Schema({
   name: {

@@ -20,4 +20,4 @@ mongoose.connect(
 const PORT = process.env.PORT;
 const HOSTNAME = process.env.LOCAL_SERVER
 
-app.listen(PORT, "127.0.0.1", () => console.info("Server has started!"));
+app.listen(PORT, () => console.info("Server has started!"));

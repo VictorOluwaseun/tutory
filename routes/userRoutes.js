@@ -10,7 +10,7 @@ router.post("/signup/tutor", authController.signupFields({
 }), authController.signup);
 
 router.post("/login", authController.login);
-// router.get("/logout", authController.logout);
+router.get("/logout", authController.logout);
 router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword/:token", authController.resetPassword);
 
@@ -24,7 +24,7 @@ router.delete("/deleteMe", userController.deleteMe);
 
 router
   .route("/")
-  .get(userController.getAllUsers)
+  .get(authController.restrictTo("admin"), userController.getAllUsers)
   .post(authController.restrictTo("admin"), userController.createUser);
 
 router.get("/tutors", authController.restrictTo("admin"), userController.getAllTutors, userController.getAllUsers);
@@ -37,9 +37,10 @@ router
   .post(authController.restrictTo("admin"), userController.updateUser);
 
 
-// router
-//   .route("/:id")
-// .get(userController.getUser)
-// .patch(userController.updateUser)
-// .delete(userController.deleteUser);
+router
+  .route("/:id")
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
+
 module.exports = router;

@@ -13,10 +13,11 @@ router
   .get(authController.restrictTo("admin"), lessonController.getAllLesson)
   .post(authController.restrictTo("admin", "student"), lessonController.bookLesson);
 
+router.use(authController.restrictTo("admin"));
 router
   .route("/:id")
   .get(lessonController.getLesson)
-  .patch(authController.restrictTo("admin"), lessonController.updateLesson)
-  .delete(authController.restrictTo("admin"), lessonController.deleteLesson);
+  .patch(lessonController.updateLesson)
+  .delete(lessonController.deleteLesson);
 
 module.exports = router;

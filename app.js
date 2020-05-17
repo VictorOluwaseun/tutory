@@ -62,7 +62,10 @@ app.use(compression()); //To compress the request objects coming from the client
 
 
 //ROUTES
-// app.use("/", userRouter);
+app.get("/", (req, res, next) => {
+  res.redirect("https://github.com/victor-for-christ/tutory#table-of-contents");
+});
+
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/subjects", subjectRouter);

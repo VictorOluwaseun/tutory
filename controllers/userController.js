@@ -171,3 +171,14 @@ exports.createUser = catchAsync(async (req, res, next) => {
     data: newUser
   })
 });
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.params.id, {
+    active: false
+  });
+
+  res.status(204).json({
+    status: "success",
+    data: null
+  });
+});

@@ -2,12 +2,15 @@ const express = require("express");
 const subjectController = require("../controllers/subjectController");
 const authController = require("../controllers/authController");
 const registerRouter = require("./registerRoutes");
+const lessonRouter = require("./lessonRoutes");
 
 const router = express.Router({
   mergeParams: true
 });
 
 router.use("/:subjectId/registers", registerRouter);
+
+router.use("/:subjectId/lessons", lessonRouter);
 
 router.use(authController.protect);
 

@@ -11,7 +11,11 @@ router.use(authController.protect);
 router
   .route("/")
   .get(authController.restrictTo("admin"), lessonController.getAllLesson)
-  .post(authController.restrictTo("admin", "student"), lessonController.setSubjectId, lessonController.bookLesson);
+  .post(authController.restrictTo("admin", "student"),
+    lessonController.setSubjectId,
+    lessonController.uploadLessonImages,
+    lessonController.resizeLessonImages,
+    lessonController.bookLesson);
 
 router.use(authController.restrictTo("admin"));
 router

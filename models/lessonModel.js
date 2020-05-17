@@ -25,7 +25,7 @@ const lessonSchema = new mongoose.Schema({
     type: String,
     trim: true,
     // minlength: [20, "A lesson body must have more than or equal to 3 characters"],
-    required: [true, "A lesson must have a body"]
+    // required: [true, "A lesson must have a body"]
   },
   bookedBy: {
     type: mongoose.Schema.ObjectId,

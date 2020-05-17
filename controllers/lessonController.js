@@ -25,6 +25,11 @@ exports.getLesson = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.setSubjectId = (req, res, next) => {
+  if (!req.body.subject) req.body.subject = req.params.subjectId;
+  next();
+}
+
 exports.bookLesson = catchAsync(async (req, res, next) => {
   req.body.bookedBy = req.user.id;
   const newLesson = await Lesson.create(req.body);

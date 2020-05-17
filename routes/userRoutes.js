@@ -34,8 +34,6 @@ router
   .get(authController.restrictTo("admin"), userController.getAllUsers)
   .post(authController.restrictTo("admin"), userController.createUser);
 
-
-
 router
   .route("/tutors/:id")
   .get(authController.restrictTo("admin"), userController.getAllTutors, userController.getUser)
